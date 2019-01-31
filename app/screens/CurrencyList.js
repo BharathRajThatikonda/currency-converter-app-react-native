@@ -21,6 +21,11 @@ class CurrencyList extends Component{
           navigation.goBack(null);
       };
     render(){
+        const { baseCurrency, quoteCurrency, navigation } = this.props;
+            let comparisonCurrency = baseCurrency;
+            if (navigation.state.params.type === 'quote') {
+                comparisonCurrency = quoteCurrency;
+            }
         return (
             <View styles={{flex:1,}}>
             <StatusBar translucent={false} barStyle="default" />
@@ -40,5 +45,8 @@ class CurrencyList extends Component{
     }
 }
 
-
-export default connect()(CurrencyList);
+const mapStateToProps = state => ({
+    baseCurrency: state.currencies.baseCurrency,
+    quoteCurrency: state.currencies.quoteCurrency,
+  });
+export default connect(mapStateToProps)(CurrencyList);
